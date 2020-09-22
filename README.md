@@ -13,11 +13,12 @@ Dependencies
 
 The script has been tested running under Python 3.7.7, with the following packages installed (along with their dependencies):
 
-- `numpy==1.18.1`
+- `numpy==1.18.4 `
 - `scipy==1.4.1`
+- `torch==1.4.0+cu100`
+- `tqdm==4.42.1`
+- `networkx==2.4`
 - `scikit-learn==0.23.1`
-- `tqdm==4.46.1`
-- `torch==1.4.1`
 
 Some Python module dependencies are listed in `requirements.txt`, which can be easily installed with pip:
 
@@ -62,7 +63,7 @@ The help information of the main script ```train.py``` is listed as follows:
 ### Demo
 Then a demo script is available by calling ```train.py```, as the following:
 
-    python train.py --data-name cora --alpha 0.4 --epsilon 0.1 --tau 0.005
+    python train.py --dataset cora --alpha 0.4 --epsilon 0.1 --tau 0.005
       
 
 Usage: Evaluation
