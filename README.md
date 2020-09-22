@@ -15,7 +15,7 @@ The script has been tested running under Python 3.7.7, with the following packag
 
 - `numpy==1.18.4 `
 - `scipy==1.4.1`
-- `torch==1.4.0+cu100`
+- `torch==1.4.0`
 - `tqdm==4.42.1`
 - `networkx==2.4`
 - `scikit-learn==0.23.1`
@@ -93,5 +93,5 @@ The help information of the evaluation script is listed as follows:
 ### Demo
 Then a demo script is available by calling ```eval.py```, as the following:
 
-    python eval.py --data-name cora --alpha 0.2 --epsilon 0.1 --model model.pkl
+    python eval.py --dataset cora --alpha 0.2 --epsilon 0.1 --model model.pkl
       
