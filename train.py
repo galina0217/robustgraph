@@ -49,6 +49,10 @@ l2_coef = 0.0
 drop_prob = 0.0
 hid_units = args.dim
 sparse = True
+if dataset == 'polblogs':
+    attack_mode = 'A'
+else:
+    attack_mode = 'both'
 nonlinearity = 'prelu' # special name to separate parameters
 
 if dataset == 'polblogs':
@@ -120,7 +124,7 @@ best_t = 0
 step_size_init = 20
 attack_iters = 10
 stepsize_x = 1e-5
-attack_mode = 'both'
+# attack_mode = 'both'
 
 drop = 0.8
 epochs_drop = 20

@@ -29,7 +29,10 @@ args = parser.parse_args()
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 dataset = args.dataset
 attack_rate = args.alpha
-attack_mode = 'both'
+if dataset == 'polblogs':
+    attack_mode = 'A'
+else:
+    attack_mode = 'both'
 
 # training params
 hid_units = args.dim
@@ -149,6 +152,8 @@ for _ in range(50):
 accs = torch.stack(accs)
 natural_acc_mean = accs.mean().detach().cpu().numpy()
 natural_acc_std = accs.std().detach().cpu().numpy()
+print(accs.detach().cpu().numpy())
+print('Natural accuracy: {} (std: {})'.format(natural_acc_mean, natural_acc_std))
 
 
 print("== Start Attacking ==")
@@ -169,13 +174,17 @@ for _ in range(10):
               random_restarts=False, make_adv=True, return_a=False)
     if attack_mode == 'A':
         embeds, _ = model.embed(features, adv, sparse, None)
+        loss = mi_loss(model, adv, features, nb_nodes, b_xent, 1, sparse)
+        loss_ori = mi_loss(model, sp_adj_ori, features, nb_nodes, b_xent, 1, sparse)
     elif attack_mode == 'X':
         embeds, _ = model.embed(adv, sp_adj, sparse, None)
+        loss = mi_loss(model, sp_adj, adv, nb_nodes, b_xent, 1, sparse)
+        loss_ori = mi_loss(model, sp_adj_ori, features_ori, nb_nodes, b_xent, 1, sparse)
     elif attack_mode == 'both':
         embeds, _ = model.embed(adv[1], adv[0], sparse, None)
+        loss = mi_loss(model, adv[0], adv[1], nb_nodes, b_xent, 1, sparse)
+        loss_ori = mi_loss(model, sp_adj_ori, features_ori, nb_nodes, b_xent, 1, sparse)
 
-    loss = mi_loss(model, adv[0], adv[1], nb_nodes, b_xent, 1, sparse)
-    loss_ori = mi_loss(model, sp_adj_ori, features_ori, nb_nodes, b_xent, 1, sparse)
     RV = loss - loss_ori
     print("RV: {}; MI-nature: {}; MI-worst: {}".format(RV.detach().cpu().numpy(),
                                                        loss_ori.detach().cpu().numpy(),
