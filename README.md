@@ -1,10 +1,10 @@
-Unsupervised Adversarially-Robust Representation Learning on Graphs
+Unsupervised Adversarially Robust Representation Learning on Graphs
 ===============================================================================
 
 About
 -----
 
-This project is the implementation of the paper "Unsupervised Adversarially-Robust Representation Learning on Graphs".
+This project is the implementation of the paper "Unsupervised Adversarially Robust Representation Learning on Graphs".
 
 This repo contains the codes, data and results reported in the paper.
 
